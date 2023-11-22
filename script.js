@@ -3,7 +3,20 @@ const picturesContainer = document.getElementById('pictures')
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
-	// fetchPictures()
+	fetchPictures()
+})
+
+let debounceTimer = null
+document.addEventListener('scroll', () => {
+	if (debounceTimer) {
+		clearTimeout(debounceTimer)
+	}
+
+	if (window.scrollY + window.innerHeight >= document.body.offsetHeight) {
+		debounceTimer = setTimeout(() => {
+			fetchPictures()
+		}, 500)
+	}
 })
 
 // Functions
