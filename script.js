@@ -1,5 +1,10 @@
 // DOM elements
 const picturesContainer = document.getElementById('pictures')
+const loaderFirst = document.getElementById('loader-first')
+const loaderSecond = document.getElementById('loader-second')
+
+// Variables
+let notLoaded = true
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
@@ -22,12 +27,30 @@ document.addEventListener('scroll', () => {
 // Functions
 
 const fetchPictures = async () => {
-	const response = await fetch(
-		`https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=30`
-	)
-	const data = await response.json()
+	if (notLoaded) {
+		loaderFirst.style.display = 'block'
+	} else {
+		loaderSecond.style.display = 'block'
+	}
 
-	appendPictures(data)
+	try {
+		const response = await fetch(
+			`https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=30`
+		)
+		const data = await response.json()
+
+		appendPictures(data)
+
+		if (notLoaded) {
+			loaderFirst.style.display = 'none'
+		} else {
+			loaderSecond.style.display = 'none'
+		}
+
+		notLoaded = true
+	} catch (error) {
+		console.log(error)
+	}
 }
 
 const appendPictures = (data) => {
