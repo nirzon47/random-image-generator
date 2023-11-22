@@ -26,6 +26,11 @@ document.addEventListener('scroll', () => {
 
 // Functions
 
+/**
+ * Fetches pictures from the API and appends them to the DOM.
+ *
+ * @return {Promise<void>} A promise that resolves when the pictures are fetched and appended.
+ */
 const fetchPictures = async () => {
 	if (notLoaded) {
 		loaderFirst.style.display = 'block'
@@ -53,6 +58,11 @@ const fetchPictures = async () => {
 	}
 }
 
+/**
+ * Appends pictures to the pictures container.
+ *
+ * @param {array} data - The array of picture objects.
+ */
 const appendPictures = (data) => {
 	const fragment = new DocumentFragment()
 
